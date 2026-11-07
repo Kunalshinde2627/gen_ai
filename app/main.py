@@ -1,7 +1,8 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 
-from app.records import get_record, load_records, search_records
+from app.records import get_record, load_records
+from app.smart_search import smart_search
 
 app = FastAPI(title="TaxSaathi")
 
@@ -30,12 +31,12 @@ def read_record(record_id: str):
 
 @app.get("/search")
 def search(q: str):
-    return search_records(q)
+    return smart_search(q)
 
 
 @app.post("/questions")
 def ask_question(body: Question):
-    results = search_records(body.question)
+    results = smart_search(body.question, top_k=1)
     if not results:
         return {"answer": "I don't know. Please check incometax.gov.in.", "sources": []}
     best = results[0]
