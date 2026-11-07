@@ -1,19 +1,22 @@
 # TaxSaathi
 
-## About the Project
-TaxSaathi is a Python-based project
-that helps users understand basic
-income tax concepts.
+Helps a fresher with a first salary understand old vs new tax regime,
+which ITR form to file and how much tax is due.
 
-## Features
-- Tax information
+## Who is it for
+A fresher who has received a first salary.
+
+## Data source
+Income Tax Department: https://www.incometax.gov.in
+
+## Features (planned)
+- Tax information records
 - Menu-driven interface
-- JSON data storage
-- Search tax records
+- Search
+- Old vs new regime comparison
 
-## Technologies Used
-- Python
-- JSON
-- Google Colab
-- GitHub
+## Tech
+Python, JSON, GitHub
 
+## Run
+python day01_menu.py
