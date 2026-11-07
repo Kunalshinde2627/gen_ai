@@ -1,29 +1,25 @@
+# TaxSaathi - Day 1: menu
 
+print("=== TaxSaathi ===")
 
-print("================================")
-print("       WELCOME TO TAXSAATHI")
-print("================================")
+while True:
+    print("\n1. What is old vs new regime?")
+    print("2. Which ITR form should I file?")
+    print("3. How much tax do I pay?")
+    print("4. Exit")
 
-print("\nPlease Select an Option:")
+    choice = input("Your choice (1-4): ").strip()
 
-print("1. Tax Information")
-print("2. Tax Records")
-print("3. Search Tax Records")
-print("4. Exit")
-
-choice = input("\nEnter your choice (1-4): ")
-
-if choice == "1":
-    print("You selected Tax Information")
-
-elif choice == "2":
-    print("You selected Tax Records")
-
-elif choice == "3":
-    print("You selected Search Tax Records")
-
-elif choice == "4":
-    print("Thank you for using TaxSaathi!")
-
-else:
-    print("Invalid Choice! Please try again.")
+    if choice == "1":
+        print("New regime is the default: lower rates, fewer deductions.")
+        print("Old regime: higher rates, but deductions like 80C and HRA.")
+    elif choice == "2":
+        print("Only salary income: usually ITR-1.")
+        print("Capital gains: ITR-2. Business or freelance income: ITR-3 or ITR-4.")
+    elif choice == "3":
+        print("Coming on Day 2.")
+    elif choice == "4":
+        print("Thank you!")
+        break
+    else:
+        print("Invalid choice. Enter 1 to 4.")
