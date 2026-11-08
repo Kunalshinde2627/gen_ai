@@ -5,7 +5,7 @@ from app.models import TaxRecord
 REQUIRED_FIELDS = ["id", "topic", "regime", "summary", "source_url"]
 
 
-def ingest(path="data/sample_records.json"):
+def ingest(path="data/records.json"):
     """Load records from JSON, check every field, return a list of TaxRecord."""
     with open(path, encoding="utf-8") as f:
         raw_records = json.load(f)
