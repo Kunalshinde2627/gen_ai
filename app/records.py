@@ -34,3 +34,19 @@ def format_record(record):
         f"  {record['summary']}\n"
         f"  Source: {record['source_url']}"
     )
+
+def get_by_id(record_id):
+    """Return one record by its id, or None if not found."""
+    return get_record(record_id)
+
+
+def count_by(field):
+    """Count records for each value of a field.
+
+    Example: count_by("regime") -> {"new": 4, "old": 6, "both": 6}
+    """
+    counts = {}
+    for record in load_records():
+        value = record[field]
+        counts[value] = counts.get(value, 0) + 1
+    return counts
