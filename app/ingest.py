@@ -1,6 +1,6 @@
 import json
 
-from models import TaxRecord
+from app.models import TaxRecord
 
 REQUIRED_FIELDS = ["id", "topic", "regime", "summary", "source_url"]
 
