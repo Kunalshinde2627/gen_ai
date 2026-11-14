@@ -23,7 +23,7 @@ def main():
         "# Semantic search results",
         "",
         "Top 3 chunks for each of my 10 TaxSaathi questions.",
-        "Score is cosine similarity (1.0 = same meaning). Below 0.25 counts as no match.",
+        "Score is cosine similarity (1.0 = same meaning). Below 0.5 counts as no match.",
         "",
     ]
     for number, question in enumerate(QUESTIONS, start=1):

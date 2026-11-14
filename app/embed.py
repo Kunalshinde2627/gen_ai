@@ -23,7 +23,7 @@ def _load():
     return _chunks, _matrix
 
 
-def semantic_search(query, top_k=3, min_score=0.25):
+def semantic_search(query, top_k=3, min_score=0.5):
     """Return the chunks closest in meaning to the query (cosine similarity)."""
     chunks, matrix = _load()
     query_vector = embed_texts([query])[0]

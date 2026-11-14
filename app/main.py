@@ -3,6 +3,7 @@ import json
 
 from pathlib import Path
 
+from app.vectorstore import query as semantic_query
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 
@@ -93,3 +94,10 @@ def chat(body: Question):
 
     except RuntimeError as error:
         raise HTTPException(status_code=502, detail=str(error))
+
+    
+
+@app.get("/search/semantic")
+def search_semantic(q: str, top_k: int = 3):
+    """Find the chunks closest in meaning to the question (Chroma)."""
+    return semantic_query(q, top_k=top_k)
