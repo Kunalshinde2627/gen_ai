@@ -2,7 +2,7 @@
 import json
 
 from pathlib import Path
-
+from app.rag import answer_question
 from app.vectorstore import query as semantic_query
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
@@ -101,3 +101,10 @@ def chat(body: Question):
 def search_semantic(q: str, top_k: int = 3):
     """Find the chunks closest in meaning to the question (Chroma)."""
     return semantic_query(q, top_k=top_k)
+
+
+
+@app.post("/ask")
+def ask(body: Question):
+    """Answer a question from the retrieved chunks, with citations."""
+    return answer_question(body.question)

@@ -42,3 +42,14 @@ Python, JSON, FastAPI, pandas, scikit-learn, GitHub
    - http://127.0.0.1:8000/records/R08
    - http://127.0.0.1:8000/search?q=80C
    - http://127.0.0.1:8000/docs
+
+   ## Evaluation Results
+
+Dataset: 15 questions
+
+### Observations
+
+- Top K = 3 and Top K = 5 were tested.
+- Some questions received correct answers, while others returned the no-answer response.
+- Some questions failed because relevant information was not retrieved.
+- Irrelevant citations were removed for no-answer responses.

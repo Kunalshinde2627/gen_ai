@@ -1,0 +1,78 @@
+
+[
+  {
+    "id": "Q1",
+    "question": "What is Form 16?",
+    "expected": "Form 16 is a TDS certificate issued by an employer."
+  },
+  {
+    "id": "Q2",
+    "question": "Who issues Form 16?",
+    "expected": "The employer issues Form 16."
+  },
+  {
+    "id": "Q3",
+    "question": "What is Form 16 used for?",
+    "expected": "It is used while filing income tax returns."
+  },
+  {
+    "id": "Q4",
+    "question": "What is ITR-1?",
+    "expected": "ITR-1 is also known as Sahaj."
+  },
+  {
+    "id": "Q5",
+    "question": "Who can file ITR-1?",
+    "expected": "Eligible resident individuals can file ITR-1."
+  },
+  {
+    "id": "Q6",
+    "question": "Can I file ITR-1 if I have short-term capital gains?",
+    "expected": "No, use the applicable ITR form such as ITR-2."
+  },
+  {
+    "id": "Q7",
+    "question": "What is ITR-2?",
+    "expected": "ITR-2 is an income tax return form."
+  },
+  {
+    "id": "Q8",
+    "question": "What is TDS?",
+    "expected": "TDS means Tax Deducted at Source."
+  },
+  {
+    "id": "Q9",
+    "question": "What is PAN?",
+    "expected": "PAN is Permanent Account Number."
+  },
+  {
+    "id": "Q10",
+    "question": "What is an income tax return?",
+    "expected": "It is a return reporting income and tax details."
+  },
+  {
+    "id": "Q11",
+    "question": "What is Form 26AS?",
+    "expected": "It is a tax credit statement."
+  },
+  {
+    "id": "Q12",
+    "question": "What is AIS?",
+    "expected": "AIS means Annual Information Statement."
+  },
+  {
+    "id": "Q13",
+    "question": "When is an income tax refund issued?",
+    "expected": "After processing the income tax return, if a refund is due."
+  },
+  {
+    "id": "Q14",
+    "question": "What is the last date for filing ITR?",
+    "expected": "It depends on the taxpayer category and applicable assessment year."
+  },
+  {
+    "id": "Q15",
+    "question": "When will my refund be credited to my SBI account?",
+    "expected": "I don't know. Please check incometax.gov.in."
+  }
+]
