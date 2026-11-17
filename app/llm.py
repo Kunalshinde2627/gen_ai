@@ -11,34 +11,68 @@ GROQ_URL = "https://api.groq.com/openai/v1/chat/completions"
 
 
 def ask_llm(system_prompt, user_message, temperature=0.2):
-    """Send a system prompt and a user message to Groq."""
+    """Send a system prompt and user message to Groq."""
+
     api_key = os.getenv("GROQ_API_KEY")
 
     if not api_key:
-        raise RuntimeError("GROQ_API_KEY is missing. Add it to your .env file.")
+        raise RuntimeError(
+            "GROQ_API_KEY is missing. Add it to your .env file."
+        )
 
-    model = os.getenv("GROQ_MODEL", "llama-3.3-70b-versatile")
+    model = os.getenv(
+        "GROQ_MODEL",
+        "llama-3.3-70b-versatile"
+    )
+
+    payload = {
+        "model": model,
+        "temperature": temperature,
+        "messages": [
+            {
+                "role": "system",
+                "content": system_prompt
+            },
+            {
+                "role": "user",
+                "content": user_message
+            }
+        ]
+    }
 
     response = requests.post(
         GROQ_URL,
         headers={
             "Authorization": f"Bearer {api_key}",
-            "Content-Type": "application/json",
+            "Content-Type": "application/json"
         },
-        json={
-            "model": model,
-            "temperature": temperature,
-            "messages": [
-                {"role": "system", "content": system_prompt},
-                {"role": "user", "content": user_message},
-            ],
-        },
-        timeout=60,
+        json=payload,
+        timeout=60
     )
 
     if response.status_code != 200:
         raise RuntimeError(
-            f"Groq error {response.status_code}: {response.text[:300]}"
+            f"Groq error {response.status_code}: "
+            f"{response.text[:500]}"
         )
 
-    return response.json()["choices"][0]["message"]["content"]
+    data = response.json()
+
+    message = data["choices"][0]["message"]
+
+    # Check if the model returned normal text
+    content = message.get("content")
+
+    if content:
+        return content
+
+    # Tool calls are not expected in this application
+    if message.get("tool_calls"):
+        raise RuntimeError(
+            "Groq returned an unexpected tool call. "
+            "Expected a JSON text response instead."
+        )
+
+    raise RuntimeError(
+        "Groq returned an empty response."
+    )

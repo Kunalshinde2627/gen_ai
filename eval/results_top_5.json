@@ -1,261 +1,347 @@
-[
-  {
-    "id": "Q1",
-    "question": "What is Form 16?",
-    "expected": "Form 16 is a TDS certificate issued by an employer.",
-    "actual": "Form 16 is the certificate your employer gives you showing the Tax Deducted at Source (TDS) they have deducted from your salary, which you use when filing your Income Tax Return. [1]",
-    "citations_count": 1,
-    "citations": [
-      {
-        "number": 1,
-        "id": "R15",
-        "title": "Form 16 and TDS",
-        "source": "https://www.incometax.gov.in",
-        "score": 0.563
-      }
-    ]
+{
+  "summary": {
+    "top_k": 5,
+    "total_questions": 15,
+    "correct_answers": 14,
+    "cited_answers": 6,
+    "answerable_questions": 7,
+    "citation_coverage": 85.71,
+    "q6_refused": false
   },
-  {
-    "id": "Q2",
-    "question": "Who issues Form 16?",
-    "expected": "The employer issues Form 16.",
-    "actual": "I don't know. Please check incometax.gov.in.",
-    "citations_count": 0,
-    "citations": []
-  },
-  {
-    "id": "Q3",
-    "question": "What is Form 16 used for?",
-    "expected": "It is used while filing income tax returns.",
-    "actual": "Form 16 is provided by your employer and is used when filing your Income Tax Return (ITR) [1]",
-    "citations_count": 1,
-    "citations": [
-      {
-        "number": 1,
-        "id": "R15",
-        "title": "Form 16 and TDS",
-        "source": "https://www.incometax.gov.in",
-        "score": 0.59
-      }
-    ]
-  },
-  {
-    "id": "Q4",
-    "question": "What is ITR-1?",
-    "expected": "ITR-1 is also known as Sahaj.",
-    "actual": "ITR‑1 is the income‑tax return form for individuals whose income consists mainly of salary (plus interest income) and at most one house‑property, with total income not exceeding ₹50 lakh [3]. It cannot be used for business income, large capital gains, more than two house properties, or other excluded sources [4].",
-    "citations_count": 5,
-    "citations": [
-      {
-        "number": 1,
-        "id": "R13",
-        "title": "ITR-3",
-        "source": "https://www.incometax.gov.in",
-        "score": 0.624
-      },
-      {
-        "number": 2,
-        "id": "R12",
-        "title": "ITR-2",
-        "source": "https://www.incometax.gov.in",
-        "score": 0.586
-      },
-      {
-        "number": 3,
-        "id": "R11",
-        "title": "ITR-1",
-        "source": "https://www.incometax.gov.in",
-        "score": 0.561
-      },
-      {
-        "number": 4,
-        "id": "file_itr1_sahaj-1",
-        "title": "File ITR-1 (Sahaj) Online | Income Tax Department",
-        "source": "https://www.incometax.gov.in/iec/foportal/help/all-topics/e-filing-services/file-itr-1-sahaj-online",
-        "score": 0.504
-      },
-      {
-        "number": 5,
-        "id": "itr1_faq-3",
-        "title": "File ITR-1 (Sahaj) Online – FAQs | Income Tax Department",
-        "source": "https://www.incometax.gov.in/iec/foportal/help/all-topics/e-filing-services/ITR1-FAQ",
-        "score": 0.5
-      }
-    ]
-  },
-  {
-    "id": "Q5",
-    "question": "Who can file ITR-1?",
-    "expected": "Eligible resident individuals can file ITR-1.",
-    "actual": "Individuals and Hindu Undivided Families (HUFs) can file ITR‑1. [1]",
-    "citations_count": 5,
-    "citations": [
-      {
-        "number": 1,
-        "id": "file_itr1_sahaj-7",
-        "title": "File ITR-1 (Sahaj) Online | Income Tax Department",
-        "source": "https://www.incometax.gov.in/iec/foportal/help/all-topics/e-filing-services/file-itr-1-sahaj-online",
-        "score": 0.601
-      },
-      {
-        "number": 2,
-        "id": "which_itr-1",
-        "title": "Identification and Generation of Applicable ITR User Manual | Income Tax Department",
-        "source": "https://www.incometax.gov.in/iec/foportal/help/identification-and-generation-of-applicable-itr-individual",
-        "score": 0.587
-      },
-      {
-        "number": 3,
-        "id": "which_itr-9",
-        "title": "Identification and Generation of Applicable ITR User Manual | Income Tax Department",
-        "source": "https://www.incometax.gov.in/iec/foportal/help/identification-and-generation-of-applicable-itr-individual",
-        "score": 0.577
-      },
-      {
-        "number": 4,
-        "id": "which_itr-2",
-        "title": "Identification and Generation of Applicable ITR User Manual | Income Tax Department",
-        "source": "https://www.incometax.gov.in/iec/foportal/help/identification-and-generation-of-applicable-itr-individual",
-        "score": 0.558
-      },
-      {
-        "number": 5,
-        "id": "file_itr1_sahaj-4",
-        "title": "File ITR-1 (Sahaj) Online | Income Tax Department",
-        "source": "https://www.incometax.gov.in/iec/foportal/help/all-topics/e-filing-services/file-itr-1-sahaj-online",
-        "score": 0.54
-      }
-    ]
-  },
-  {
-    "id": "Q6",
-    "question": "Can I file ITR-1 if I have short-term capital gains?",
-    "expected": "No, use the applicable ITR form such as ITR-2.",
-    "actual": "Yes. Short‑term capital gains are not listed among the incomes excluded from ITR‑1, so you can file ITR‑1 with such gains【4†L1-L4】.",
-    "citations_count": 5,
-    "citations": [
-      {
-        "number": 1,
-        "id": "file_itr1_sahaj-17",
-        "title": "File ITR-1 (Sahaj) Online | Income Tax Department",
-        "source": "https://www.incometax.gov.in/iec/foportal/help/all-topics/e-filing-services/file-itr-1-sahaj-online",
-        "score": 0.655
-      },
-      {
-        "number": 2,
-        "id": "file_itr1_sahaj-7",
-        "title": "File ITR-1 (Sahaj) Online | Income Tax Department",
-        "source": "https://www.incometax.gov.in/iec/foportal/help/all-topics/e-filing-services/file-itr-1-sahaj-online",
-        "score": 0.643
-      },
-      {
-        "number": 3,
-        "id": "R12",
-        "title": "ITR-2",
-        "source": "https://www.incometax.gov.in",
-        "score": 0.638
-      },
-      {
-        "number": 4,
-        "id": "file_itr1_sahaj-1",
-        "title": "File ITR-1 (Sahaj) Online | Income Tax Department",
-        "source": "https://www.incometax.gov.in/iec/foportal/help/all-topics/e-filing-services/file-itr-1-sahaj-online",
-        "score": 0.632
-      },
-      {
-        "number": 5,
-        "id": "itr1_faq-1",
-        "title": "File ITR-1 (Sahaj) Online – FAQs | Income Tax Department",
-        "source": "https://www.incometax.gov.in/iec/foportal/help/all-topics/e-filing-services/ITR1-FAQ",
-        "score": 0.599
-      }
-    ]
-  },
-  {
-    "id": "Q7",
-    "question": "What is ITR-2?",
-    "expected": "ITR-2 is an income tax return form.",
-    "actual": "ITR‑2 is the income‑tax return form you use when you have capital‑gains from shares or mutual‑funds in addition to a salary [1]",
-    "citations_count": 2,
-    "citations": [
-      {
-        "number": 1,
-        "id": "R12",
-        "title": "ITR-2",
-        "source": "https://www.incometax.gov.in",
-        "score": 0.619
-      },
-      {
-        "number": 2,
-        "id": "R13",
-        "title": "ITR-3",
-        "source": "https://www.incometax.gov.in",
-        "score": 0.61
-      }
-    ]
-  },
-  {
-    "id": "Q8",
-    "question": "What is TDS?",
-    "expected": "TDS means Tax Deducted at Source.",
-    "actual": "I don't know. Please check incometax.gov.in.",
-    "citations_count": 0,
-    "citations": []
-  },
-  {
-    "id": "Q9",
-    "question": "What is PAN?",
-    "expected": "PAN is Permanent Account Number.",
-    "actual": "I don't know. Please check incometax.gov.in.",
-    "citations_count": 0,
-    "citations": []
-  },
-  {
-    "id": "Q10",
-    "question": "What is an income tax return?",
-    "expected": "It is a return reporting income and tax details.",
-    "actual": "I don't know. Please check incometax.gov.in.",
-    "citations_count": 0,
-    "citations": []
-  },
-  {
-    "id": "Q11",
-    "question": "What is Form 26AS?",
-    "expected": "It is a tax credit statement.",
-    "actual": "I don't know. Please check incometax.gov.in.",
-    "citations_count": 0,
-    "citations": []
-  },
-  {
-    "id": "Q12",
-    "question": "What is AIS?",
-    "expected": "AIS means Annual Information Statement.",
-    "actual": "I don't know. Please check incometax.gov.in.",
-    "citations_count": 0,
-    "citations": []
-  },
-  {
-    "id": "Q13",
-    "question": "When is an income tax refund issued?",
-    "expected": "After processing the income tax return, if a refund is due.",
-    "actual": "I don't know. Please check incometax.gov.in.",
-    "citations_count": 0,
-    "citations": []
-  },
-  {
-    "id": "Q14",
-    "question": "What is the last date for filing ITR?",
-    "expected": "It depends on the taxpayer category and applicable assessment year.",
-    "actual": "I don't know. Please check incometax.gov.in.",
-    "citations_count": 0,
-    "citations": []
-  },
-  {
-    "id": "Q15",
-    "question": "When will my refund be credited to my SBI account?",
-    "expected": "I don't know. Please check incometax.gov.in.",
-    "actual": "I don't know. Please check incometax.gov.in.",
-    "citations_count": 0,
-    "citations": []
-  }
-]
+  "results": [
+    {
+      "id": "Q1",
+      "question": "What is Form 16?",
+      "expected": "Form 16 is a TDS certificate issued by an employer.",
+      "expected_keyword": "Tax Deducted at Source",
+      "answerable": true,
+      "actual": "Form 16 is the certificate your employer gives you showing the tax deducted at source (TDS) from your salary, which you use when filing your income‑tax return [1].",
+      "correct": true,
+      "cited": true,
+      "refused": false,
+      "citations_count": 1,
+      "citations": [
+        {
+          "number": 1,
+          "id": "R15",
+          "title": "Form 16 and TDS",
+          "source": "https://www.incometax.gov.in",
+          "score": 0.563
+        }
+      ]
+    },
+    {
+      "id": "Q2",
+      "question": "Who issues Form 16?",
+      "expected": "The employer issues Form 16.",
+      "expected_keyword": "employer",
+      "answerable": true,
+      "actual": "I don't know. Please check incometax.gov.in.",
+      "correct": false,
+      "cited": false,
+      "refused": true,
+      "citations_count": 0,
+      "citations": []
+    },
+    {
+      "id": "Q3",
+      "question": "What is Form 16 used for?",
+      "expected": "It is used while filing income tax returns.",
+      "expected_keyword": "Income Tax Return",
+      "answerable": true,
+      "actual": "Form 16 is provided by your employer and is used when filing your Income Tax Return (ITR) [1].",
+      "correct": true,
+      "cited": true,
+      "refused": false,
+      "citations_count": 1,
+      "citations": [
+        {
+          "number": 1,
+          "id": "R15",
+          "title": "Form 16 and TDS",
+          "source": "https://www.incometax.gov.in",
+          "score": 0.59
+        }
+      ]
+    },
+    {
+      "id": "Q4",
+      "question": "What is ITR-1?",
+      "expected": "ITR-1 is also known as Sahaj.",
+      "expected_keyword": "Sahaj",
+      "answerable": true,
+      "actual": "ITR‑1 (also called “Sahaj”) is the income‑tax return for individuals whose income consists of salary (or pension), interest income and up to one house‑property, with total income not exceeding ₹50 lakh [3]. It cannot be used for business income, large capital gains, more than two house properties, or other excluded sources [4].",
+      "correct": true,
+      "cited": true,
+      "refused": false,
+      "citations_count": 5,
+      "citations": [
+        {
+          "number": 1,
+          "id": "R13",
+          "title": "ITR-3",
+          "source": "https://www.incometax.gov.in",
+          "score": 0.624
+        },
+        {
+          "number": 2,
+          "id": "R12",
+          "title": "ITR-2",
+          "source": "https://www.incometax.gov.in",
+          "score": 0.586
+        },
+        {
+          "number": 3,
+          "id": "R11",
+          "title": "ITR-1",
+          "source": "https://www.incometax.gov.in",
+          "score": 0.561
+        },
+        {
+          "number": 4,
+          "id": "file_itr1_sahaj-1",
+          "title": "File ITR-1 (Sahaj) Online | Income Tax Department",
+          "source": "https://www.incometax.gov.in/iec/foportal/help/all-topics/e-filing-services/file-itr-1-sahaj-online",
+          "score": 0.504
+        },
+        {
+          "number": 5,
+          "id": "itr1_faq-3",
+          "title": "File ITR-1 (Sahaj) Online – FAQs | Income Tax Department",
+          "source": "https://www.incometax.gov.in/iec/foportal/help/all-topics/e-filing-services/ITR1-FAQ",
+          "score": 0.5
+        }
+      ]
+    },
+    {
+      "id": "Q5",
+      "question": "Who can file ITR-1?",
+      "expected": "Eligible resident individuals can file ITR-1.",
+      "expected_keyword": "Individuals",
+      "answerable": true,
+      "actual": "Individuals and Hindu Undivided Families (HUFs) who meet the qualifying conditions can file ITR‑1 [Sahaj] [1].",
+      "correct": true,
+      "cited": true,
+      "refused": false,
+      "citations_count": 5,
+      "citations": [
+        {
+          "number": 1,
+          "id": "file_itr1_sahaj-7",
+          "title": "File ITR-1 (Sahaj) Online | Income Tax Department",
+          "source": "https://www.incometax.gov.in/iec/foportal/help/all-topics/e-filing-services/file-itr-1-sahaj-online",
+          "score": 0.601
+        },
+        {
+          "number": 2,
+          "id": "which_itr-1",
+          "title": "Identification and Generation of Applicable ITR User Manual | Income Tax Department",
+          "source": "https://www.incometax.gov.in/iec/foportal/help/identification-and-generation-of-applicable-itr-individual",
+          "score": 0.587
+        },
+        {
+          "number": 3,
+          "id": "which_itr-9",
+          "title": "Identification and Generation of Applicable ITR User Manual | Income Tax Department",
+          "source": "https://www.incometax.gov.in/iec/foportal/help/identification-and-generation-of-applicable-itr-individual",
+          "score": 0.577
+        },
+        {
+          "number": 4,
+          "id": "which_itr-2",
+          "title": "Identification and Generation of Applicable ITR User Manual | Income Tax Department",
+          "source": "https://www.incometax.gov.in/iec/foportal/help/identification-and-generation-of-applicable-itr-individual",
+          "score": 0.558
+        },
+        {
+          "number": 5,
+          "id": "file_itr1_sahaj-4",
+          "title": "File ITR-1 (Sahaj) Online | Income Tax Department",
+          "source": "https://www.incometax.gov.in/iec/foportal/help/all-topics/e-filing-services/file-itr-1-sahaj-online",
+          "score": 0.54
+        }
+      ]
+    },
+    {
+      "id": "Q6",
+      "question": "Can I file ITR-1 if I have short-term capital gains?",
+      "expected": "No, use the applicable ITR form such as ITR-2.",
+      "expected_keyword": "ITR-2",
+      "answerable": true,
+      "actual": "No. If you have short‑term capital gains (e.g., from shares or mutual funds) you should use ITR‑2, not ITR‑1【3】.",
+      "correct": true,
+      "cited": true,
+      "refused": false,
+      "citations_count": 5,
+      "citations": [
+        {
+          "number": 1,
+          "id": "file_itr1_sahaj-17",
+          "title": "File ITR-1 (Sahaj) Online | Income Tax Department",
+          "source": "https://www.incometax.gov.in/iec/foportal/help/all-topics/e-filing-services/file-itr-1-sahaj-online",
+          "score": 0.655
+        },
+        {
+          "number": 2,
+          "id": "file_itr1_sahaj-7",
+          "title": "File ITR-1 (Sahaj) Online | Income Tax Department",
+          "source": "https://www.incometax.gov.in/iec/foportal/help/all-topics/e-filing-services/file-itr-1-sahaj-online",
+          "score": 0.643
+        },
+        {
+          "number": 3,
+          "id": "R12",
+          "title": "ITR-2",
+          "source": "https://www.incometax.gov.in",
+          "score": 0.638
+        },
+        {
+          "number": 4,
+          "id": "file_itr1_sahaj-1",
+          "title": "File ITR-1 (Sahaj) Online | Income Tax Department",
+          "source": "https://www.incometax.gov.in/iec/foportal/help/all-topics/e-filing-services/file-itr-1-sahaj-online",
+          "score": 0.632
+        },
+        {
+          "number": 5,
+          "id": "itr1_faq-1",
+          "title": "File ITR-1 (Sahaj) Online – FAQs | Income Tax Department",
+          "source": "https://www.incometax.gov.in/iec/foportal/help/all-topics/e-filing-services/ITR1-FAQ",
+          "score": 0.599
+        }
+      ]
+    },
+    {
+      "id": "Q7",
+      "question": "What is ITR-2?",
+      "expected": "ITR-2 is an income tax return form.",
+      "expected_keyword": "ITR-2",
+      "answerable": true,
+      "actual": "ITR‑2 is the income‑tax return form used when you have salary income together with capital‑gains from shares or mutual funds [1].",
+      "correct": true,
+      "cited": true,
+      "refused": false,
+      "citations_count": 2,
+      "citations": [
+        {
+          "number": 1,
+          "id": "R12",
+          "title": "ITR-2",
+          "source": "https://www.incometax.gov.in",
+          "score": 0.619
+        },
+        {
+          "number": 2,
+          "id": "R13",
+          "title": "ITR-3",
+          "source": "https://www.incometax.gov.in",
+          "score": 0.61
+        }
+      ]
+    },
+    {
+      "id": "Q8",
+      "question": "What is TDS?",
+      "expected": "TDS means Tax Deducted at Source.",
+      "expected_keyword": "Tax Deducted at Source",
+      "answerable": false,
+      "actual": "I don't know. Please check incometax.gov.in.",
+      "correct": true,
+      "cited": false,
+      "refused": true,
+      "citations_count": 0,
+      "citations": []
+    },
+    {
+      "id": "Q9",
+      "question": "What is PAN?",
+      "expected": "PAN is Permanent Account Number.",
+      "expected_keyword": "Permanent Account Number",
+      "answerable": false,
+      "actual": "I don't know. Please check incometax.gov.in.",
+      "correct": true,
+      "cited": false,
+      "refused": true,
+      "citations_count": 0,
+      "citations": []
+    },
+    {
+      "id": "Q10",
+      "question": "What is an income tax return?",
+      "expected": "It is a return reporting income and tax details.",
+      "expected_keyword": "income and tax details",
+      "answerable": false,
+      "actual": "I don't know. Please check incometax.gov.in.",
+      "correct": true,
+      "cited": false,
+      "refused": true,
+      "citations_count": 0,
+      "citations": []
+    },
+    {
+      "id": "Q11",
+      "question": "What is Form 26AS?",
+      "expected": "It is a tax credit statement.",
+      "expected_keyword": "tax credit statement",
+      "answerable": false,
+      "actual": "I don't know. Please check incometax.gov.in.",
+      "correct": true,
+      "cited": false,
+      "refused": true,
+      "citations_count": 0,
+      "citations": []
+    },
+    {
+      "id": "Q12",
+      "question": "What is AIS?",
+      "expected": "AIS means Annual Information Statement.",
+      "expected_keyword": "Annual Information Statement",
+      "answerable": false,
+      "actual": "I don't know. Please check incometax.gov.in.",
+      "correct": true,
+      "cited": false,
+      "refused": true,
+      "citations_count": 0,
+      "citations": []
+    },
+    {
+      "id": "Q13",
+      "question": "When is an income tax refund issued?",
+      "expected": "After processing the income tax return, if a refund is due.",
+      "expected_keyword": "after processing",
+      "answerable": false,
+      "actual": "I don't know. Please check incometax.gov.in.",
+      "correct": true,
+      "cited": false,
+      "refused": true,
+      "citations_count": 0,
+      "citations": []
+    },
+    {
+      "id": "Q14",
+      "question": "What is the last date for filing ITR?",
+      "expected": "It depends on the taxpayer category and applicable assessment year.",
+      "expected_keyword": "assessment year",
+      "answerable": false,
+      "actual": "I don't know. Please check incometax.gov.in.",
+      "correct": true,
+      "cited": false,
+      "refused": true,
+      "citations_count": 0,
+      "citations": []
+    },
+    {
+      "id": "Q15",
+      "question": "When will my refund be credited to my SBI account?",
+      "expected": "I don't know. Please check incometax.gov.in.",
+      "expected_keyword": "I don't know",
+      "answerable": false,
+      "actual": "I don't know. Please check incometax.gov.in.",
+      "correct": true,
+      "cited": false,
+      "refused": true,
+      "citations_count": 0,
+      "citations": []
+    }
+  ]
+}
