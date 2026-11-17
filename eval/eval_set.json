@@ -1,78 +1,17 @@
-
 [
-  {
-    "id": "Q1",
-    "question": "What is Form 16?",
-    "expected": "Form 16 is a TDS certificate issued by an employer."
-  },
-  {
-    "id": "Q2",
-    "question": "Who issues Form 16?",
-    "expected": "The employer issues Form 16."
-  },
-  {
-    "id": "Q3",
-    "question": "What is Form 16 used for?",
-    "expected": "It is used while filing income tax returns."
-  },
-  {
-    "id": "Q4",
-    "question": "What is ITR-1?",
-    "expected": "ITR-1 is also known as Sahaj."
-  },
-  {
-    "id": "Q5",
-    "question": "Who can file ITR-1?",
-    "expected": "Eligible resident individuals can file ITR-1."
-  },
-  {
-    "id": "Q6",
-    "question": "Can I file ITR-1 if I have short-term capital gains?",
-    "expected": "No, use the applicable ITR form such as ITR-2."
-  },
-  {
-    "id": "Q7",
-    "question": "What is ITR-2?",
-    "expected": "ITR-2 is an income tax return form."
-  },
-  {
-    "id": "Q8",
-    "question": "What is TDS?",
-    "expected": "TDS means Tax Deducted at Source."
-  },
-  {
-    "id": "Q9",
-    "question": "What is PAN?",
-    "expected": "PAN is Permanent Account Number."
-  },
-  {
-    "id": "Q10",
-    "question": "What is an income tax return?",
-    "expected": "It is a return reporting income and tax details."
-  },
-  {
-    "id": "Q11",
-    "question": "What is Form 26AS?",
-    "expected": "It is a tax credit statement."
-  },
-  {
-    "id": "Q12",
-    "question": "What is AIS?",
-    "expected": "AIS means Annual Information Statement."
-  },
-  {
-    "id": "Q13",
-    "question": "When is an income tax refund issued?",
-    "expected": "After processing the income tax return, if a refund is due."
-  },
-  {
-    "id": "Q14",
-    "question": "What is the last date for filing ITR?",
-    "expected": "It depends on the taxpayer category and applicable assessment year."
-  },
-  {
-    "id": "Q15",
-    "question": "When will my refund be credited to my SBI account?",
-    "expected": "I don't know. Please check incometax.gov.in."
-  }
+  {"id": 1, "question": "What is the tax slab for Rs 10 lakh income under the new regime for AY 2026-27?", "expected_keyword": "10%", "answerable": true},
+  {"id": 2, "question": "Which ITR form should I file if I only have salary and bank interest?", "expected_keyword": "ITR-1", "answerable": true},
+  {"id": 3, "question": "Can I file ITR-1 if I have short-term capital gains?", "expected_keyword": "ITR-2", "answerable": true},
+  {"id": 4, "question": "My salary is 6.5 lakh and I have 25,000 FD interest, how much tax do I pay in new regime and do I get rebate?", "expected_keyword": "rebate", "answerable": true},
+  {"id": 5, "question": "Is old regime or new regime better for me if I pay 1.5 lakh in PPF and 40,000 health insurance?", "expected_keyword": "80C", "answerable": true},
+  {"id": 6, "question": "When will my refund for last year be credited to my SBI account?", "expected_keyword": "", "answerable": false},
+  {"id": 7, "question": "What is Form 16 and how do I use it?", "expected_keyword": "TDS", "answerable": true},
+  {"id": 8, "question": "How many days do I have to e-verify my return?", "expected_keyword": "30", "answerable": true},
+  {"id": 9, "question": "Can I claim HRA exemption in the new regime?", "expected_keyword": "old regime", "answerable": true},
+  {"id": 10, "question": "Do I have to pay 4% cess on my tax?", "expected_keyword": "4%", "answerable": true},
+  {"id": 11, "question": "What is the standard deduction in the new regime?", "expected_keyword": "75,000", "answerable": true},
+  {"id": 12, "question": "Is the new tax regime the default?", "expected_keyword": "default", "answerable": true},
+  {"id": 13, "question": "Up to what taxable income is there no tax in the new regime because of the 87A rebate?", "expected_keyword": "12 lakh", "answerable": true},
+  {"id": 14, "question": "Can I claim 80C deduction in the new regime?", "expected_keyword": "old regime", "answerable": true},
+  {"id": 15, "question": "Which mutual fund should I buy to save the most tax?", "expected_keyword": "", "answerable": false}
 ]

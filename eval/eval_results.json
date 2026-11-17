@@ -1,0 +1,426 @@
+{
+  "A": [
+    {
+      "id": 1,
+      "answerable": true,
+      "answer": "Under the new tax regime, a salary of ₹10 lakh falls below the ₹12.75 lakh limit and attracts no tax — the income is tax-free. [3]",
+      "citations": [
+        "R08",
+        "R07",
+        "R06"
+      ],
+      "error": null,
+      "correct": false,
+      "cited": true,
+      "refused": false,
+      "passed": false
+    },
+    {
+      "id": 2,
+      "answerable": true,
+      "answer": "You should file ITR-1 (Sahaj) for income that consists only of salary and bank interest [2].",
+      "citations": [
+        "which_itr-11",
+        "file_itr1_sahaj-1",
+        "file_itr1_sahaj-8"
+      ],
+      "error": null,
+      "correct": true,
+      "cited": true,
+      "refused": false,
+      "passed": true
+    },
+    {
+      "id": 3,
+      "answerable": true,
+      "answer": "No. If you have short-term capital gains you must use ITR-2, not ITR-1. [3]",
+      "citations": [
+        "file_itr1_sahaj-17",
+        "file_itr1_sahaj-7",
+        "R12"
+      ],
+      "error": null,
+      "correct": true,
+      "cited": true,
+      "refused": false,
+      "passed": true
+    },
+    {
+      "id": 4,
+      "answerable": true,
+      "answer": "Under the new tax regime your total income (₹6.50 L salary + ₹0.25 L interest = ₹6.75 L) is well below the ₹12 L limit for section 87A.  \nTherefore you are eligible for the rebate of up to ₹60,000 and your tax liability comes out to **₹0** after the rebate.  \n\n[1]",
+      "citations": [
+        "R06",
+        "R07",
+        "file_itr1_sahaj-16"
+      ],
+      "error": null,
+      "correct": true,
+      "cited": true,
+      "refused": false,
+      "passed": true
+    },
+    {
+      "id": 5,
+      "answerable": true,
+      "answer": "I don't know. Please check incometax.gov.in.",
+      "citations": [],
+      "error": null,
+      "correct": false,
+      "cited": false,
+      "refused": true,
+      "passed": false
+    },
+    {
+      "id": 6,
+      "answerable": false,
+      "answer": "I don't know. Please check incometax.gov.in.",
+      "citations": [],
+      "error": null,
+      "correct": false,
+      "cited": false,
+      "refused": true,
+      "passed": true
+    },
+    {
+      "id": 7,
+      "answerable": true,
+      "answer": "Form 16 is a certificate your employer gives you showing the TDS they have deducted from your salary. You use the details in Form 16 when filing your Income Tax Return (ITR). [1]",
+      "citations": [
+        "R15"
+      ],
+      "error": null,
+      "correct": true,
+      "cited": true,
+      "refused": false,
+      "passed": true
+    },
+    {
+      "id": 8,
+      "answerable": true,
+      "answer": "You have 30 days from filing to e-verify your return. [1][2]",
+      "citations": [
+        "R16",
+        "file_itr1_sahaj-12"
+      ],
+      "error": null,
+      "correct": true,
+      "cited": true,
+      "refused": false,
+      "passed": true
+    },
+    {
+      "id": 9,
+      "answerable": true,
+      "answer": "No. House-rent-allowance exemption is available only under the old tax regime, not the new regime. [1]",
+      "citations": [
+        "R10"
+      ],
+      "error": null,
+      "correct": true,
+      "cited": true,
+      "refused": false,
+      "passed": true
+    },
+    {
+      "id": 10,
+      "answerable": true,
+      "answer": "Yes, a 4% health and education cess is added on the tax amount. [1]",
+      "citations": [
+        "R14"
+      ],
+      "error": null,
+      "correct": true,
+      "cited": true,
+      "refused": false,
+      "passed": true
+    },
+    {
+      "id": 11,
+      "answerable": true,
+      "answer": "The standard deduction in the new regime is Rs 75,000. [1]",
+      "citations": [
+        "R04",
+        "R05",
+        "R08"
+      ],
+      "error": null,
+      "correct": true,
+      "cited": true,
+      "refused": false,
+      "passed": true
+    },
+    {
+      "id": 12,
+      "answerable": true,
+      "answer": "Yes, the New Tax Regime is the default option from AY 2024-25. [1]",
+      "citations": [
+        "file_itr1_sahaj-14",
+        "file_itr1_sahaj-15"
+      ],
+      "error": null,
+      "correct": true,
+      "cited": true,
+      "refused": false,
+      "passed": true
+    },
+    {
+      "id": 13,
+      "answerable": true,
+      "answer": "No tax is payable on taxable income up to ₹ 12 lakh under the new regime because of the Section 87A rebate. [1]",
+      "citations": [
+        "R06",
+        "file_itr1_sahaj-16",
+        "R07"
+      ],
+      "error": null,
+      "correct": true,
+      "cited": true,
+      "refused": false,
+      "passed": true
+    },
+    {
+      "id": 14,
+      "answerable": true,
+      "answer": "No. Section 80C deductions are available only under the old tax regime[2].",
+      "citations": [
+        "file_itr1_sahaj-30",
+        "R08",
+        "R09"
+      ],
+      "error": null,
+      "correct": true,
+      "cited": true,
+      "refused": false,
+      "passed": true
+    },
+    {
+      "id": 15,
+      "answerable": false,
+      "answer": "I don't know. Please check incometax.gov.in.",
+      "citations": [],
+      "error": null,
+      "correct": false,
+      "cited": false,
+      "refused": true,
+      "passed": true
+    }
+  ],
+  "B": [
+    {
+      "id": 1,
+      "answerable": true,
+      "answer": "Under the new regime, a salary of ₹10 lakh falls within the ₹12.75 lakh limit that attracts no tax after the rebate of up to ₹60,000 [3].",
+      "citations": [
+        "R08",
+        "R07",
+        "R06",
+        "R11",
+        "itr1_faq-3"
+      ],
+      "error": null,
+      "correct": false,
+      "cited": true,
+      "refused": false,
+      "passed": false
+    },
+    {
+      "id": 2,
+      "answerable": true,
+      "answer": "You should file ITR-1 (Sahaj), which covers salary and bank-interest income [2].",
+      "citations": [
+        "which_itr-11",
+        "file_itr1_sahaj-1",
+        "file_itr1_sahaj-8",
+        "file_itr1_sahaj-9",
+        "file_itr1_sahaj-7"
+      ],
+      "error": null,
+      "correct": true,
+      "cited": true,
+      "refused": false,
+      "passed": true
+    },
+    {
+      "id": 3,
+      "answerable": true,
+      "answer": "No. If you have short-term capital gains (e.g., from shares or mutual funds) you should use ITR-2, not ITR-1[3].",
+      "citations": [
+        "file_itr1_sahaj-17",
+        "file_itr1_sahaj-7",
+        "R12",
+        "file_itr1_sahaj-1",
+        "itr1_faq-1"
+      ],
+      "error": null,
+      "correct": true,
+      "cited": true,
+      "refused": false,
+      "passed": true
+    },
+    {
+      "id": 4,
+      "answerable": true,
+      "answer": "Your total income (₹6.5 L salary + ₹25 000 interest = ₹6.75 L) is below the ₹12 L limit for rebate u/s 87A and also below the ₹12.75 L level at which tax starts in the new regime. Hence you pay **₹0 tax** and you can claim the **rebate of up to ₹60 000** under the new regime【1†L1-L3】【3†L11-L13】.",
+      "citations": [
+        "R06",
+        "R07",
+        "file_itr1_sahaj-16"
+      ],
+      "error": null,
+      "correct": true,
+      "cited": false,
+      "refused": false,
+      "passed": false
+    },
+    {
+      "id": 5,
+      "answerable": true,
+      "answer": "I don't know. Please check incometax.gov.in.",
+      "citations": [],
+      "error": null,
+      "correct": false,
+      "cited": false,
+      "refused": true,
+      "passed": false
+    },
+    {
+      "id": 6,
+      "answerable": false,
+      "answer": "I don't know. Please check incometax.gov.in.",
+      "citations": [],
+      "error": null,
+      "correct": false,
+      "cited": false,
+      "refused": true,
+      "passed": true
+    },
+    {
+      "id": 7,
+      "answerable": true,
+      "answer": "Form 16 is a certificate your employer gives you showing the TDS (Tax Deducted at Source) they have deducted from your salary. You use the details in Form 16 when filing your Income Tax Return (ITR). [1]",
+      "citations": [
+        "R15"
+      ],
+      "error": null,
+      "correct": true,
+      "cited": true,
+      "refused": false,
+      "passed": true
+    },
+    {
+      "id": 8,
+      "answerable": true,
+      "answer": "You have 30 days from filing to e-verify your return. [1][2]",
+      "citations": [
+        "R16",
+        "file_itr1_sahaj-12"
+      ],
+      "error": null,
+      "correct": true,
+      "cited": true,
+      "refused": false,
+      "passed": true
+    },
+    {
+      "id": 9,
+      "answerable": true,
+      "answer": "No. House-rent-allowance exemption is available only under the old tax regime. [1]",
+      "citations": [
+        "R10"
+      ],
+      "error": null,
+      "correct": true,
+      "cited": true,
+      "refused": false,
+      "passed": true
+    },
+    {
+      "id": 10,
+      "answerable": true,
+      "answer": "Yes, a 4% health and education cess is added on the tax amount. [1]",
+      "citations": [
+        "R14"
+      ],
+      "error": null,
+      "correct": true,
+      "cited": true,
+      "refused": false,
+      "passed": true
+    },
+    {
+      "id": 11,
+      "answerable": true,
+      "answer": "The standard deduction in the new regime is Rs 75,000. [1]",
+      "citations": [
+        "R04",
+        "R05",
+        "R08",
+        "file_itr1_sahaj-15",
+        "R09"
+      ],
+      "error": null,
+      "correct": true,
+      "cited": true,
+      "refused": false,
+      "passed": true
+    },
+    {
+      "id": 12,
+      "answerable": true,
+      "answer": "Yes, the New Tax Regime is the default option from AY 2024-25. [1]",
+      "citations": [
+        "file_itr1_sahaj-14",
+        "file_itr1_sahaj-15"
+      ],
+      "error": null,
+      "correct": true,
+      "cited": true,
+      "refused": false,
+      "passed": true
+    },
+    {
+      "id": 13,
+      "answerable": true,
+      "answer": "No tax is payable on taxable income up to ₹ 12.75 lakh in the new regime because of the Section 87A rebate[1].",
+      "citations": [
+        "R06",
+        "file_itr1_sahaj-16",
+        "R07"
+      ],
+      "error": null,
+      "correct": false,
+      "cited": true,
+      "refused": false,
+      "passed": false
+    },
+    {
+      "id": 14,
+      "answerable": true,
+      "answer": "No. Section 80C deductions are available only under the old tax regime[2].",
+      "citations": [
+        "file_itr1_sahaj-30",
+        "R08",
+        "R09",
+        "file_itr1_sahaj-32",
+        "file_itr1_sahaj-34"
+      ],
+      "error": null,
+      "correct": true,
+      "cited": true,
+      "refused": false,
+      "passed": true
+    },
+    {
+      "id": 15,
+      "answerable": false,
+      "answer": "I don't know. Please check incometax.gov.in.",
+      "citations": [],
+      "error": null,
+      "correct": false,
+      "cited": false,
+      "refused": true,
+      "passed": true
+    }
+  ]
+}
