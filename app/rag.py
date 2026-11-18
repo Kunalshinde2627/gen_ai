@@ -1,3 +1,4 @@
+
 import re
 
 from app.llm import ask_llm
@@ -13,27 +14,49 @@ NO_ANSWER = "I don't know. Please check incometax.gov.in."
 
 
 def clean(text):
-    """Use normal spaces, hyphens and [n] brackets, whatever the LLM returned."""
-    for old, new in [("\u202f", " "), ("\u00a0", " "), ("\u2011", "-"), ("\u2010", "-")]:
+    for old, new in [
+        ("\u202f", " "),
+        ("\u00a0", " "),
+        ("\u2011", "-"),
+        ("\u2010", "-"),
+    ]:
         text = text.replace(old, new)
-    return re.sub(r"【(\d+)】", r"[\1]", text)
+
+    return re.sub(r"【(\d+)】", r"[\1]", text).strip()
 
 
 def answer_question(question, top_k=3):
-    """Find the closest chunks, ask the LLM to answer from them, return answer + citations."""
-    hits = query(question, top_k=top_k, min_score=0.50)
+    hits = query(question, top_k=top_k, min_score=0.40)
+
     if not hits:
-        return {"answer": NO_ANSWER, "citations": []}
+        return {
+            "answer": NO_ANSWER,
+            "citations": []
+        }
 
     sources = "\n\n".join(
         f"[{number}] {hit['title']}: {hit['text']}"
         for number, hit in enumerate(hits, start=1)
     )
-    user_message = f"Sources:\n{sources}\n\nQuestion: {question}"
-    answer = clean(ask_llm(SYSTEM_PROMPT, user_message, temperature=0))
 
-    if NO_ANSWER in answer:
-        return {"answer": NO_ANSWER, "citations": []}
+    user_message = (
+        f"Sources:\n{sources}\n\n"
+        f"Question: {question}"
+    )
+
+    answer = clean(
+        ask_llm(
+            SYSTEM_PROMPT,
+            user_message,
+            temperature=0
+        )
+    )
+
+    if NO_ANSWER.lower() in answer.lower():
+        return {
+            "answer": NO_ANSWER,
+            "citations": []
+        }
 
     citations = [
         {
@@ -45,4 +68,8 @@ def answer_question(question, top_k=3):
         }
         for number, hit in enumerate(hits, start=1)
     ]
-    return {"answer": answer, "citations": citations}
+
+    return {
+        "answer": answer,
+        "citations": citations
+    }

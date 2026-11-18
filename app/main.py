@@ -13,7 +13,6 @@ from app.records import get_record, load_records
 from app.smart_search import smart_search
 from app.llm import ask_llm
 
-# LangGraph imports
 from app.graph import run_graph, resume_graph
 
 
@@ -64,8 +63,7 @@ def search(q: str):
 
 # 5. Questions API
 @app.post("/questions")
-def ask_question(body: Question):
-
+def ask_question_api(body: Question):
     results = smart_search(body.question, top_k=1)
 
     if not results:
@@ -85,7 +83,6 @@ def ask_question(body: Question):
 # 6. Chat API
 @app.post("/chat")
 def chat(body: Question):
-
     system_prompt = (
         Path("prompts/system_prompt.txt").read_text(encoding="utf-8")
         + """
@@ -103,7 +100,6 @@ def chat(body: Question):
 
     try:
         response = ask_llm(system_prompt, body.question)
-
         result = json.loads(response)
 
         return {
@@ -128,18 +124,16 @@ def chat(body: Question):
 # 7. Semantic Search API
 @app.get("/search/semantic")
 def search_semantic(q: str, top_k: int = 3):
-
     return semantic_query(q, top_k=top_k)
 
 
 # 8. Ask API
 @app.post("/ask")
 def ask(body: Question):
-
     return answer_question(body.question)
 
 
-# 9. Agent API with Human-in-the-Loop
+# 9. Agent API with HITL, Sources and Regime Comparison
 @app.post("/agent")
 def agent(body: AgentRequest):
 
@@ -162,22 +156,28 @@ def agent(body: AgentRequest):
             interrupts = result.get("__interrupt__", [])
 
             if interrupts:
-
                 interrupt_data = interrupts[0].value
 
                 return {
                     "status": "awaiting_approval",
                     "thread_id": body.thread_id,
-                    "approval_required": interrupt_data
+                    "approval_required": interrupt_data,
+                    "answer": result.get("answer", ""),
+                    "sources": result.get("citations", []),
+                    "comparison": result.get("comparison"),
+                    "steps": result.get("steps", [])
                 }
 
             return {
                 "status": "completed",
                 "thread_id": body.thread_id,
-                "answer": result["answer"]
+                "answer": result.get("answer", ""),
+                "sources": result.get("citations", []),
+                "comparison": result.get("comparison"),
+                "steps": result.get("steps", [])
             }
 
-        # Second request: Resume graph
+        # Second request: Resume after approval/rejection
         else:
 
             result = resume_graph(
@@ -189,11 +189,13 @@ def agent(body: AgentRequest):
                 "status": "completed",
                 "thread_id": body.thread_id,
                 "approved": body.approved,
-                "answer": result["answer"]
+                "answer": result.get("answer", ""),
+                "sources": result.get("citations", []),
+                "comparison": result.get("comparison"),
+                "steps": result.get("steps", [])
             }
 
     except Exception as error:
-
         raise HTTPException(
             status_code=500,
             detail=str(error)

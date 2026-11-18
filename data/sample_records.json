@@ -46,5 +46,12 @@
    "source_url": "https://www.incometax.gov.in"},
   {"id": "R16", "topic": "E-verify", "regime": "both",
    "summary": "E-verify your return within 30 days of filing, otherwise it is treated as invalid.",
-   "source_url": "https://www.incometax.gov.in"}
+   "source_url": "https://www.incometax.gov.in"},
+     {
+    "id": "R17",
+    "topic": "What is Income Tax",
+    "regime": "both",
+    "summary": "Income tax is a tax charged by the government on the taxable income earned by a person. The amount of tax depends on the applicable income tax rules and tax regime.",
+    "source_url": "https://www.incometax.gov.in/iec/foportal/help/individual/return-applicable-1"
+  }
 ]

@@ -1,0 +1,22 @@
+[
+    {
+        "message_id": "de0428e0-fcb8-4e91-b784-94bdb04be0c0",
+        "feedback": "positive",
+        "thread_id": "50b83136-d8d4-452c-b64f-41dd5b3610e5"
+    },
+    {
+        "message_id": "de0428e0-fcb8-4e91-b784-94bdb04be0c0",
+        "feedback": "negative",
+        "thread_id": "50b83136-d8d4-452c-b64f-41dd5b3610e5"
+    },
+    {
+        "message_id": "de0428e0-fcb8-4e91-b784-94bdb04be0c0",
+        "feedback": "positive",
+        "thread_id": "50b83136-d8d4-452c-b64f-41dd5b3610e5"
+    },
+    {
+        "message_id": "997971e4-ba40-4bc8-95f0-e6bd1c6fdc52",
+        "feedback": "positive",
+        "thread_id": "d1844a58-6895-4989-a033-6e49cccc7ae4"
+    }
+]

@@ -1,33 +1,34 @@
 
-from typing import TypedDict, List, Dict, Any
+from typing import TypedDict, List, Dict, Any, Optional
 
 from langgraph.graph import StateGraph, START, END
 from langgraph.checkpoint.memory import MemorySaver
 from langgraph.types import interrupt, Command
 
 
-# 1. Define Graph State
 class AgentState(TypedDict):
     question: str
     answer: str
     steps: List[Dict[str, Any]]
+    citations: List[Dict[str, Any]]
+    comparison: Optional[Dict[str, Any]]
     approved: bool
 
 
-# 2. Agent Node
-def agent_node(state: AgentState):
+def agent_node(state):
     from app.agent_loop import run_agent
 
     result = run_agent(state["question"])
 
     return {
         "answer": result["answer"],
-        "steps": result["steps"]
+        "steps": result["steps"],
+        "citations": result.get("citations", []),
+        "comparison": result.get("comparison")
     }
 
 
-# 3. Approval Node using interrupt()
-def approval_node(state: AgentState):
+def approval_node(state):
 
     decision = interrupt({
         "message": "Approval Required",
@@ -36,25 +37,30 @@ def approval_node(state: AgentState):
     })
 
     return {
-        "approved": decision is True or
-                    str(decision).lower() == "yes"
+        "approved": (
+            decision is True
+            or str(decision).lower() == "yes"
+        )
     }
 
 
-# 4. Final Node
-def final_node(state: AgentState):
+def final_node(state):
 
     if state["approved"]:
+
         return {
-            "answer": state["answer"]
+            "answer": state["answer"],
+            "citations": state.get("citations", []),
+            "comparison": state.get("comparison")
         }
 
     return {
-        "answer": "Answer was not approved by the user."
+        "answer": "Answer was not approved by the user.",
+        "citations": [],
+        "comparison": None
     }
 
 
-# 5. Build Graph
 builder = StateGraph(AgentState)
 
 builder.add_node("agent", agent_node)
@@ -66,20 +72,14 @@ builder.add_edge("agent", "approval")
 builder.add_edge("approval", "final")
 builder.add_edge("final", END)
 
-
-# 6. MemorySaver
 memory = MemorySaver()
 
-
-# 7. Compile Graph
 graph = builder.compile(
     checkpointer=memory
 )
 
 
-# 8. Graph Configuration
-def get_config(thread_id: str):
-
+def get_config(thread_id):
     return {
         "configurable": {
             "thread_id": thread_id
@@ -87,13 +87,14 @@ def get_config(thread_id: str):
     }
 
 
-# 9. Start Graph
-def run_graph(question: str, thread_id: str = "user_101"):
+def run_graph(question, thread_id="user_101"):
 
     initial_state = {
         "question": question,
         "answer": "",
         "steps": [],
+        "citations": [],
+        "comparison": None,
         "approved": False
     }
 
@@ -103,34 +104,9 @@ def run_graph(question: str, thread_id: str = "user_101"):
     )
 
 
-# 10. Resume Graph after Approval
-def resume_graph(thread_id: str, approved: bool):
+def resume_graph(thread_id, approved):
 
     return graph.invoke(
         Command(resume=approved),
         config=get_config(thread_id)
     )
-
-
-# 11. Main Execution
-if __name__ == "__main__":
-
-    question = input("Ask TaxSaathi: ")
-
-    thread_id = "user_101"
-
-    result = run_graph(question, thread_id)
-
-    if "__interrupt__" in result:
-
-        print("\nApproval Required")
-        print(result["__interrupt__"])
-
-        approval = input("\nApprove? (yes/no): ").strip().lower()
-
-        final_result = resume_graph(
-            thread_id,
-            approval == "yes"
-        )
-
-        print("\nFinal Answer:", final_result["answer"])

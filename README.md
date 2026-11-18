@@ -1,91 +1,191 @@
-# TaxSaathi
+# TaxSaathi 💰
 
-Helps a fresher with a first salary understand old vs new tax regime,
-which ITR form to file and how much tax is due.
+**TaxSaathi** is an AI-powered Income Tax Assistant designed to help freshers understand income tax, compare the old and new tax regimes, and find relevant Income Tax Department information.
 
-## Who is it for
-A fresher who has received a first salary.
+## Who is it for?
 
-## Data source
-Income Tax Department: https://www.incometax.gov.in
-(4 help pages saved in `data/raw`, plus my own short tax records in `data/sample_records.json`.)
+Freshers who have received their first salary and want to understand:
+- Income tax basics
+- Old vs New Tax Regime
+- Estimated tax liability
+- Relevant income tax rules and sources
+
+## Project Screenshot
+
+![TaxSaathi UI](docs/ui-screenshot.png)
 
 ## Features
-- Menu-driven command line interface
+
+### 1. Search and RAG
 - Keyword search and TF-IDF smart search
-- Semantic search with embeddings and a Chroma vector store
-- RAG: answers from retrieved chunks, with [n] citations
-- "I don't know" when the data cannot answer
-- REST API with FastAPI
-- Evaluation of 15 questions with a winner table
+- Semantic search with embeddings and Chroma vector store
+- RAG-based answers using retrieved information
+- Source citations and reference links
+- Safe fallback when the available data cannot answer a question
 
-## Tech
-Python, FastAPI, pandas, scikit-learn, Chroma, Groq (LLM), GitHub
+### 2. Tax Calculation
+- New Regime tax calculator
+- Old Regime tax calculator
+- Old vs New Regime comparison
+- Slab-wise tax breakdown
+- Section 87A rebate and 4% cess calculation
+- Highlights the regime with lower estimated tax
 
-## How to run
+### 3. AI Agent and Human Approval
+- Agent workflow using LangGraph
+- Human-in-the-loop approval
+- Resume workflow after approval
+- MemorySaver checkpointer for conversation state
 
-1. Install the libraries:
-   ```
-   pip install -r requirements.txt
-   ```
+### 4. Streamlit Chat Interface
+- Interactive chat interface
+- Backend integration with FastAPI
+- Chat history during the session
+- Source and calculation details
+- Thumbs Up / Thumbs Down feedback
+- Feedback stored in `data/feedback.json`
 
-2. Create a `.env` file (see `.env.example`) and add your own Groq API key:
-   ```
-   GROQ_API_KEY=your-key-here
-   GROQ_MODEL=llama-3.3-70b-versatile
-   ```
+### 5. REST API
+- FastAPI backend
+- API documentation using Swagger UI
+- Endpoints for search, records, questions and agent execution
 
-3. Build the vector store (once):
-   ```
-   python -m app.vectorstore
-   ```
+### 6. Evaluation
+- Evaluation of 15 questions
+- Comparison of different retrieval configurations
+- Winner table based on correctness, citations and refusal behaviour
 
-4. Run the menu (command line):
-   ```
-   python -m app.cli
-   ```
+## Tech Stack
 
-5. Run the API server:
-   ```
-   python -m uvicorn app.main:app --reload
-   ```
+- Python
+- Streamlit
+- FastAPI
+- LangGraph
+- RAG
+- ChromaDB
+- Embeddings
+- pandas
+- scikit-learn
+- LLM integration
+- Git and GitHub
 
-6. Open in the browser:
-   - http://127.0.0.1:8000/docs (try every endpoint here)
-   - http://127.0.0.1:8000/health
-   - http://127.0.0.1:8000/records/R08
-   - http://127.0.0.1:8000/search?q=80C
-   - http://127.0.0.1:8000/search/semantic?q=What is Form 16
-   - `POST /ask` with `{"question": "What is Form 16 and how do I use it?"}`
+## Data Sources
 
-## RAG evaluation
+Official Income Tax Department:
+
+https://www.incometax.gov.in
+
+- Help pages stored in `data/raw`
+- Tax records stored in `data/sample_records.json`
+- Retrieved source information is used to support RAG answers.
+
+## Project Structure
+
+```text
+TaxSaathi/
+│
+├── app/
+│   ├── main.py
+│   ├── graph.py
+│   ├── agent_loop.py
+│   ├── rag.py
+│   ├── vectorstore.py
+│   ├── tools.py
+│   ├── records.py
+│   ├── smart_search.py
+│   └── llm.py
+│
+├── ui/
+│   └── app.py
+│
+├── data/
+│   ├── raw/
+│   ├── sample_records.json
+│   └── feedback.json
+│
+├── docs/
+│   └── ui-screenshot.png
+│
+├── eval/
+│   ├── eval_set.json
+│   └── run_eval.py
+│
+├── requirements.txt
+├── README.md
+└── .env.example
+```
+
+## How to Run
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/Kunalshinde2627/gen_ai.git
+cd TaxSaathi
+```
+
+### 2. Install dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+### 3. Configure environment variables
+
+Create a `.env` file using `.env.example` and add the required API key and model configuration.
+
+Do not upload your API key to GitHub.
+
+### 4. Build the vector store
+
+```bash
+python -m app.vectorstore
+```
+
+### 5. Start the FastAPI backend
+
+```bash
+python -m uvicorn app.main:app --reload
+```
+
+Backend URL:
+
+http://127.0.0.1:8000
+
+Swagger documentation:
+
+http://127.0.0.1:8000/docs
+
+### 6. Start the Streamlit UI
+
+Open another terminal and run:
+
+```bash
+python -m streamlit run ui/app.py
+```
+
+Streamlit will display a local URL, usually:
+
+http://localhost:8501
+
+## RAG Evaluation
 
 I wrote 15 questions in `eval/eval_set.json`: 13 can be answered from my data and 2 cannot.
+
 Each answer is scored on three things:
-- **Correct:** the answer contains the expected keyword.
-- **Cited:** the answer has a [n] citation.
-- **Refused:** for the 2 unanswerable questions, TaxSaathi says "I don't know".
+- **Correct:** The answer contains the expected keyword.
+- **Cited:** The answer has a citation.
+- **Refused:** For the 2 unanswerable questions, TaxSaathi says "I don't know".
 
 I compared two settings: how many chunks are given to the LLM (`top_k` = 3 or 5).
 
 | Config | top_k | Correct | Cited | Refused when unanswerable | Score |
-|--------|-------|---------|-------|---------------------------|-------|
+|---|---:|---:|---:|---:|---:|
 | A (winner) | 3 | 11/13 | 12/13 | 2/2 | 13/15 |
 | B | 5 | 10/13 | 11/13 | 2/2 | 11/15 |
 
-**Winner: config A (top_k=3).** With 5 chunks the LLM got more less-relevant text and answered worse.
+**Winner: Config A (top_k=3).**
 
-**Failures of config A (2 of 15):**
-- **Q1** (slab for Rs 10 lakh, new regime): retrieval returned R08, R07 and R06 (80C and rebate records), not R01 (the slab record). So the answer talked about the rebate instead of the 10% slab.
-- **Q5** (old vs new regime with PPF and health insurance): no chunk scored 0.5 or more, so TaxSaathi said "I don't know". This is the safe behaviour, because my data has the rules but no calculator to compare the two regimes.
+With 5 chunks, the LLM received more less-relevant text and answered worse.
 
-Q6 (SBI refund date) and Q15 (which mutual fund to buy) cannot be answered from my data. TaxSaathi refused both.
-
-Run the evaluation:
-```
-python -m eval.run_eval
-```
-
-## Notes
-- This is a learning project. Always check the final numbers on incometax.gov.in.
-- `.env` (the API key) is never committed.
+### Fail
