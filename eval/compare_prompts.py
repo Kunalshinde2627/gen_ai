@@ -1,8 +1,8 @@
 
-from pathlib import Path
-import sys
 import json
+import sys
 import time
+from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(BASE_DIR))
@@ -19,7 +19,7 @@ questions = [
     "What is Form 16 and how do I use it?",
     "How many days do I have to e-verify my return?",
     "Can I claim HRA exemption in the new regime?",
-    "Do I have to pay 4% cess on my tax?"
+    "Do I have to pay 4% cess on my tax?",
 ]
 
 prompt_v1 = """
@@ -61,13 +61,18 @@ with output_file.open("w", encoding="utf-8") as file:
                 try:
                     parsed = json.loads(answer)
                     file.write(f"Answer: {parsed.get('answer', '')}\n\n")
-                    file.write(f"Confidence: {parsed.get('confidence', 'N/A')}\n\n")
-                    file.write(f"Follow-up: {parsed.get('follow_up', 'N/A')}\n\n")
+                    file.write(
+                        f"Confidence: {parsed.get('confidence', 'N/A')}\n\n"
+                    )
+                    file.write(
+                        f"Follow-up: {parsed.get('follow_up', 'N/A')}\n\n"
+                    )
                 except json.JSONDecodeError:
                     file.write(f"{answer}\n\n")
 
-            except Exception as error:
+            except (RuntimeError, ValueError, TypeError) as error:
                 file.write(f"Error: {error}\n\n")
+
         time.sleep(20)
         file.write("---\n\n")
 

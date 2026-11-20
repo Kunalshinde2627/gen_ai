@@ -1,17 +1,17 @@
 
-from typing import TypedDict, List, Dict, Any, Optional
+from typing import Any, TypedDict
 
-from langgraph.graph import StateGraph, START, END
 from langgraph.checkpoint.memory import MemorySaver
-from langgraph.types import interrupt, Command
+from langgraph.graph import END, START, StateGraph
+from langgraph.types import Command, interrupt
 
 
 class AgentState(TypedDict):
     question: str
     answer: str
-    steps: List[Dict[str, Any]]
-    citations: List[Dict[str, Any]]
-    comparison: Optional[Dict[str, Any]]
+    steps: list[dict[str, Any]]
+    citations: list[dict[str, Any]]
+    comparison: dict[str, Any] | None
     approved: bool
 
 

@@ -1,20 +1,16 @@
 
 import json
-
 from pathlib import Path
-from typing import Optional
 
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 
+from app.graph import resume_graph, run_graph
+from app.llm import ask_llm
 from app.rag import answer_question
-from app.vectorstore import query as semantic_query
 from app.records import get_record, load_records
 from app.smart_search import smart_search
-from app.llm import ask_llm
-
-from app.graph import run_graph, resume_graph
-
+from app.vectorstore import query as semantic_query
 
 app = FastAPI(title="TaxSaathi")
 
@@ -27,7 +23,7 @@ class Question(BaseModel):
 class AgentRequest(BaseModel):
     question: str
     thread_id: str
-    approved: Optional[bool] = None
+    approved: bool | None = None
 
 
 # 2. Health API
@@ -144,10 +140,8 @@ def agent(body: AgentRequest):
         )
 
     try:
-
         # First request: Start graph
         if body.approved is None:
-
             result = run_graph(
                 body.question,
                 thread_id=body.thread_id
@@ -178,25 +172,23 @@ def agent(body: AgentRequest):
             }
 
         # Second request: Resume after approval/rejection
-        else:
+        result = resume_graph(
+            thread_id=body.thread_id,
+            approved=body.approved
+        )
 
-            result = resume_graph(
-                thread_id=body.thread_id,
-                approved=body.approved
-            )
+        return {
+            "status": "completed",
+            "thread_id": body.thread_id,
+            "approved": body.approved,
+            "answer": result.get("answer", ""),
+            "sources": result.get("citations", []),
+            "comparison": result.get("comparison"),
+            "steps": result.get("steps", [])
+        }
 
-            return {
-                "status": "completed",
-                "thread_id": body.thread_id,
-                "approved": body.approved,
-                "answer": result.get("answer", ""),
-                "sources": result.get("citations", []),
-                "comparison": result.get("comparison"),
-                "steps": result.get("steps", [])
-            }
-
-    except Exception as error:
+    except (RuntimeError, ValueError, TypeError) as error:
         raise HTTPException(
             status_code=500,
             detail=str(error)
-        )
+        ) from error

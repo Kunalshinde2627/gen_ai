@@ -1,6 +1,8 @@
+
 from collections import Counter
 from html.parser import HTMLParser
 from pathlib import Path
+from typing import ClassVar
 
 RAW_DIR = Path(__file__).resolve().parent.parent / "data" / "raw"
 
@@ -8,8 +10,13 @@ RAW_DIR = Path(__file__).resolve().parent.parent / "data" / "raw"
 class TextExtractor(HTMLParser):
     """Collect the visible text of an HTML page, skipping scripts and menus."""
 
-    SKIP = {"script", "style", "nav", "header", "footer", "noscript", "svg"}
-    BLOCK = {"p", "li", "h1", "h2", "h3", "h4", "div", "br", "tr"}
+    SKIP: ClassVar[set[str]] = {
+        "script", "style", "nav", "header", "footer", "noscript", "svg"
+    }
+
+    BLOCK: ClassVar[set[str]] = {
+        "p", "li", "h1", "h2", "h3", "h4", "div", "br", "tr"
+    }
 
     def __init__(self):
         super().__init__()
@@ -57,7 +64,7 @@ def load_pages():
     # A line that appears on every page is menu/footer text, not help content.
     counts = Counter(line for lines in pages.values() for line in set(lines))
     shared = {line for line, count in counts.items() if count == len(pages)}
-    return {name: [l for l in lines if l not in shared] for name, lines in pages.items()}
+    return {name: [line for line in lines if line not in shared] for name, lines in pages.items()}
 
 
 if __name__ == "__main__":

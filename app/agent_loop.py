@@ -4,289 +4,10 @@ import re
 
 from app.rag import NO_ANSWER, answer_question
 from app.tools import (
-    new_regime_tax_calculator,
-    old_regime_tax_calculator
-)
-
-MAX_STEPS = 5
-
-SYSTEM_PROMPT = """You are TaxSaathi, an income tax assistant for freshers in India.
-
-Explain the provided tool result in simple English.
-Do not invent or change any tax amount.
-Reply with one JSON object only:
-{"action": "final", "input": "your answer"}
-"""
-
-
-def to_number(value):
-    return int(
-        float(
-            str(value)
-            .replace(",", "")
-            .replace("₹", "")
-            .replace("Rs", "")
-            .strip()
-        )
-    )
-
-
-def extract_amount(text):
-    text = text.lower().replace(",", "")
-
-    match = re.search(
-        r"(\d+(?:\.\d+)?)\s*(lakh|lakhs)",
-        text
-    )
-
-    if match:
-        return int(float(match.group(1)) * 100000)
-
-    match = re.search(r"(\d+(?:\.\d+)?)", text)
-
-    if match:
-        return int(float(match.group(1)))
-
-    return None
-
-
-def calculate_tax(question, regime):
-    text = question.lower().replace(",", "")
-
-    salary_patterns = [
-        r"salary\s*(?:is|of)?\s*(?:rs\.?|₹)?\s*(\d+(?:\.\d+)?)\s*(lakh|lakhs)?",
-        r"(\d+(?:\.\d+)?)\s*(lakh|lakhs)?\s*(?:rs\.?|₹)?\s*salary"
-    ]
-
-    salary = None
-
-    for pattern in salary_patterns:
-        salary_match = re.search(pattern, text)
-
-        if salary_match:
-            salary = float(salary_match.group(1))
-
-            if salary_match.group(2):
-                salary *= 100000
-
-            break
-
-    if salary is None:
-        return None
-
-    salary = int(salary)
-
-    fd_interest = 0
-
-    fd_match = re.search(
-        r"(\d+(?:\.\d+)?)\s*(lakh|lakhs)?\s*(?:rs\.?|₹)?\s*fd\s+interest",
-        text
-    )
-
-    if not fd_match:
-        fd_match = re.search(
-            r"fd\s+interest\s*(?:is)?\s*(?:rs\.?|₹)?\s*(\d+(?:\.\d+)?)\s*(lakh|lakhs)?",
-            text
-        )
-
-    if fd_match:
-        fd_interest = float(fd_match.group(1))
-
-        if fd_match.group(2):
-            fd_interest *= 100000
-
-    fd_interest = int(fd_interest)
-
-    if regime == "new":
-        taxable_income = salary + fd_interest - 75000
-        calculator = new_regime_tax_calculator
-    else:
-        taxable_income = salary + fd_interest - 50000
-        calculator = old_regime_tax_calculator
-
-    taxable_income = max(0, int(taxable_income))
-
-    result = calculator(taxable_income)
-
-    return {
-        "taxable_income": result["taxable_income"],
-        "slab_tax": result["slab_tax"],
-        "rebate_87a": result["rebate_87a"],
-        "cess_4_percent": result["cess_4_percent"],
-        "total_tax": result["total_tax"]
-    }
-
-
-def run_agent(question):
-
-    steps = []
-    citations = []
-    lower_question = question.lower()
-
-    calculation_keywords = [
-        "calculate tax",
-        "calculate my tax",
-        "tax calculation",
-        "tax payable",
-        "how much tax",
-        "how much do i pay",
-        "tax on my salary",
-        "tax on salary",
-        "income tax on",
-        "compute tax"
-    ]
-
-    is_tax_calculation = any(
-        keyword in lower_question
-        for keyword in calculation_keywords
-    )
-
-    if is_tax_calculation:
-
-        if "new regime" in lower_question:
-            regime = "new"
-        elif "old regime" in lower_question:
-            regime = "old"
-        else:
-            return {
-                "answer": "Please specify whether you want the new regime or old regime.",
-                "steps": steps,
-                "citations": citations
-            }
-
-        result = calculate_tax(question, regime)
-
-        if result is None:
-            return {
-                "answer": "Please provide your salary amount.",
-                "steps": steps,
-                "citations": citations
-            }
-
-        tool_name = (
-            "new_regime_tax"
-            if regime == "new"
-            else "old_regime_tax"
-        )
-
-        steps.append({
-            "tool": tool_name,
-            "input": result["taxable_income"],
-            "result": json.dumps(result)
-        })
-
-        answer = (
-            f"Your taxable income is Rs "
-            f"{result['taxable_income']:,}. "
-            f"Tax before rebate is Rs "
-            f"{result['slab_tax']:,}. "
-            f"Section 87A rebate is Rs "
-            f"{result['rebate_87a']:,}. "
-            f"Cess is Rs "
-            f"{result['cess_4_percent']:,}. "
-            f"Your final tax payable is Rs "
-            f"{result['total_tax']:,}."
-        )
-
-        return {
-            "answer": answer,
-            "steps": steps,
-            "citations": citations
-        }
-
-    # General questions use RAG
-    try:
-        rag_result = answer_question(question)
-
-        answer = rag_result["answer"]
-        citations = rag_result.get("citations", [])
-
-        steps.append({
-            "tool": "search_rules",
-            "input": question,
-            "result": answer
-        })
-
-        if answer == NO_ANSWER or "I don't know" in answer:
-            answer = NO_ANSWER
-            citations = []
-
-        return {
-            "answer": answer,
-            "steps": steps,
-            "citations": citations
-        }
-
-    except Exception as error:
-        print("RAG ERROR:", error)
-
-        return {
-            "answer": NO_ANSWER,
-            "steps": steps,
-            "citations": []
-        }
-
-
-if __name__ == "__main__":
-
-    question = input("Ask TaxSaathi: ")
-
-    output = run_agent(question)
-
-    for number, step in enumerate(output["steps"], start=1):
-        print(f"\nStep {number}: {step['tool']}")
-        
-import json
-import re
-
-from app.rag import NO_ANSWER, answer_question
-
-from app.tools import (
+    compare_regimes,
     new_regime_tax_calculator,
     old_regime_tax_calculator,
-    compare_regimes
 )
-
-MAX_STEPS = 5
-
-SYSTEM_PROMPT = """You are TaxSaathi, an income tax assistant for freshers in India.
-
-Explain the provided tool result in simple English.
-Do not invent or change any tax amount.
-Reply with one JSON object only:
-{"action": "final", "input": "your answer"}
-"""
-
-
-def to_number(value):
-    return int(
-        float(
-            str(value)
-            .replace(",", "")
-            .replace("₹", "")
-            .replace("Rs", "")
-            .strip()
-        )
-    )
-
-
-def extract_amount(text):
-    text = text.lower().replace(",", "")
-
-    match = re.search(
-        r"(\d+(?:\.\d+)?)\s*(lakh|lakhs)",
-        text
-    )
-
-    if match:
-        return int(float(match.group(1)) * 100000)
-
-    match = re.search(r"(\d+(?:\.\d+)?)", text)
-
-    if match:
-        return int(float(match.group(1)))
-
-    return None
 
 
 def extract_salary(question):
@@ -294,7 +15,7 @@ def extract_salary(question):
 
     salary_patterns = [
         r"salary\s*(?:is|of)?\s*(?:rs\.?|₹)?\s*(\d+(?:\.\d+)?)\s*(lakh|lakhs)?",
-        r"(\d+(?:\.\d+)?)\s*(lakh|lakhs)?\s*(?:rs\.?|₹)?\s*salary"
+        r"(\d+(?:\.\d+)?)\s*(lakh|lakhs)?\s*(?:rs\.?|₹)?\s*salary",
     ]
 
     for pattern in salary_patterns:
@@ -316,7 +37,7 @@ def extract_fd_interest(question):
 
     patterns = [
         r"(\d+(?:\.\d+)?)\s*(lakh|lakhs)?\s*(?:rs\.?|₹)?\s*fd\s+interest",
-        r"fd\s+interest\s*(?:is)?\s*(?:rs\.?|₹)?\s*(\d+(?:\.\d+)?)\s*(lakh|lakhs)?"
+        r"fd\s+interest\s*(?:is)?\s*(?:rs\.?|₹)?\s*(\d+(?:\.\d+)?)\s*(lakh|lakhs)?",
     ]
 
     for pattern in patterns:
@@ -334,7 +55,6 @@ def extract_fd_interest(question):
 
 
 def calculate_tax(question, regime):
-
     salary = extract_salary(question)
 
     if salary is None:
@@ -345,7 +65,6 @@ def calculate_tax(question, regime):
     if regime == "new":
         taxable_income = salary + fd_interest - 75000
         calculator = new_regime_tax_calculator
-
     else:
         taxable_income = salary + fd_interest - 50000
         calculator = old_regime_tax_calculator
@@ -356,7 +75,6 @@ def calculate_tax(question, regime):
 
 
 def calculate_regime_comparison(question):
-
     salary = extract_salary(question)
 
     if salary is None:
@@ -370,17 +88,17 @@ def calculate_regime_comparison(question):
 
     new_taxable_income = max(
         0,
-        salary + fd_interest - 75000
+        salary + fd_interest - 75000,
     )
 
     old_taxable_income = max(
         0,
-        salary + fd_interest - 50000
+        salary + fd_interest - 50000,
     )
 
     result = compare_regimes(
         new_taxable_income,
-        old_taxable_income
+        old_taxable_income,
     )
 
     result["gross_salary"] = salary
@@ -390,7 +108,6 @@ def calculate_regime_comparison(question):
 
 
 def run_agent(question):
-
     steps = []
     citations = []
 
@@ -407,7 +124,7 @@ def run_agent(question):
         "tax on my salary",
         "tax on salary",
         "income tax on",
-        "compute tax"
+        "compute tax",
     ]
 
     is_tax_calculation = any(
@@ -425,7 +142,7 @@ def run_agent(question):
         "new vs old",
         "which regime is better",
         "which regime is best",
-        "regime comparison"
+        "regime comparison",
     ]
 
     is_comparison = any(
@@ -435,7 +152,6 @@ def run_agent(question):
 
     # Regime comparison
     if is_comparison:
-
         result = calculate_regime_comparison(question)
 
         if result is None:
@@ -443,24 +159,22 @@ def run_agent(question):
                 "answer": "Please provide your annual salary to compare both regimes.",
                 "steps": steps,
                 "citations": citations,
-                "comparison": None
+                "comparison": None,
             }
 
         steps.append({
             "tool": "compare_regimes",
             "input": {
                 "new_taxable_income": result["new_regime"]["taxable_income"],
-                "old_taxable_income": result["old_regime"]["taxable_income"]
+                "old_taxable_income": result["old_regime"]["taxable_income"],
             },
-            "result": json.dumps(result)
+            "result": json.dumps(result),
         })
 
         if result["better_regime"] == "new":
             better_text = "New Regime is better."
-
         elif result["better_regime"] == "old":
             better_text = "Old Regime is better."
-
         else:
             better_text = "Both regimes have equal tax."
 
@@ -477,24 +191,21 @@ def run_agent(question):
             "answer": answer,
             "steps": steps,
             "citations": citations,
-            "comparison": result
+            "comparison": result,
         }
 
     # Single-regime tax calculation
     if is_tax_calculation:
-
         if "new regime" in lower_question:
             regime = "new"
-
         elif "old regime" in lower_question:
             regime = "old"
-
         else:
             return {
                 "answer": "Please specify whether you want the new regime or old regime.",
                 "steps": steps,
                 "citations": citations,
-                "comparison": None
+                "comparison": None,
             }
 
         result = calculate_tax(question, regime)
@@ -504,7 +215,7 @@ def run_agent(question):
                 "answer": "Please provide your salary amount.",
                 "steps": steps,
                 "citations": citations,
-                "comparison": None
+                "comparison": None,
             }
 
         tool_name = (
@@ -516,7 +227,7 @@ def run_agent(question):
         steps.append({
             "tool": tool_name,
             "input": result["taxable_income"],
-            "result": json.dumps(result)
+            "result": json.dumps(result),
         })
 
         answer = (
@@ -536,29 +247,23 @@ def run_agent(question):
             "answer": answer,
             "steps": steps,
             "citations": citations,
-            "comparison": None
+            "comparison": None,
         }
 
     # General questions use RAG
     try:
-
         rag_result = answer_question(question)
 
         answer = rag_result["answer"]
-
-        citations = rag_result.get(
-            "citations",
-            []
-        )
+        citations = rag_result.get("citations", [])
 
         steps.append({
             "tool": "search_rules",
             "input": question,
-            "result": answer
+            "result": answer,
         })
 
         if answer == NO_ANSWER or "I don't know" in answer:
-
             answer = NO_ANSWER
             citations = []
 
@@ -566,36 +271,29 @@ def run_agent(question):
             "answer": answer,
             "steps": steps,
             "citations": citations,
-            "comparison": None
+            "comparison": None,
         }
 
-    except Exception as error:
-
+    except Exception as error:  # noqa: BLE001
         print("RAG ERROR:", error)
 
         return {
             "answer": NO_ANSWER,
             "steps": steps,
             "citations": [],
-            "comparison": None
+            "comparison": None,
         }
 
 
 if __name__ == "__main__":
-
     question = input("Ask TaxSaathi: ")
 
     output = run_agent(question)
 
     for number, step in enumerate(output["steps"], start=1):
-
         print(f"\nStep {number}: {step['tool']}")
         print("  ->", step["result"])
 
     print("\nANSWER:", output["answer"])
     print("\nCOMPARISON:", output.get("comparison"))
-    print("\nCITATIONS:", output["citations"])
-    print("  ->", step["result"])
-
-    print("\nANSWER:", output["answer"])
     print("\nCITATIONS:", output["citations"])

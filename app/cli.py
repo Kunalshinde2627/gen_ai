@@ -1,4 +1,4 @@
-from app.records import load_records, get_record, search_records, format_record
+from app.records import format_record, get_record, load_records, search_records
 
 
 def show_all():
