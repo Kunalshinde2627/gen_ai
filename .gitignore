@@ -5,3 +5,5 @@ __pycache__/
 *.env
 
 data/chroma/
+data/feedback.json
+debug_rag.py
