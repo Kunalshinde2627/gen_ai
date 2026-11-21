@@ -1,5 +1,6 @@
 
 import json
+import os
 import uuid
 from pathlib import Path
 
@@ -12,7 +13,7 @@ st.set_page_config(
     layout="wide"
 )
 
-API_URL = "http://127.0.0.1:8000/agent"
+API_URL = os.getenv("API_URL", "http://127.0.0.1:8000/agent")
 FEEDBACK_FILE = Path("data/feedback.json")
 
 st.title("💰 TaxSaathi")
