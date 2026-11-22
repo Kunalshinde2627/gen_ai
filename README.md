@@ -1,4 +1,9 @@
+
 # TaxSaathi 💰
+
+[![TaxSaathi CI](https://github.com/Kunalshinde2627/gen_ai/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/Kunalshinde2627/gen_ai/actions/workflows/ci.yml)
+
+🌐 **Live API:** https://taxsaathi-api.onrender.com
 
 **TaxSaathi** is an AI-powered Income Tax Assistant designed to help freshers understand income tax, compare the old and new tax regimes, and find relevant Income Tax Department information.
 
@@ -187,5 +192,3 @@ I compared two settings: how many chunks are given to the LLM (`top_k` = 3 or 5)
 **Winner: Config A (top_k=3).**
 
 With 5 chunks, the LLM received more less-relevant text and answered worse.
-
-### Fail
