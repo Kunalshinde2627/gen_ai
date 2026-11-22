@@ -193,3 +193,47 @@ I compared two settings: how many chunks are given to the LLM (`top_k` = 3 or 5)
 **Winner: Config A (top_k=3).**
 
 With 5 chunks, the LLM received more less-relevant text and answered worse.
+
+
+## Architecture
+
+```mermaid
+flowchart LR
+    U[User / Streamlit UI] --> A[FastAPI on Render]
+    A --> C{Cache hit?}
+    C -- yes --> R[Return saved answer]
+    C -- no --> V[Chroma vector search]
+    V -- no chunk above 0.5 --> N["I don't know"]
+    V -- chunks found --> L[Groq LLM with sources]
+    L --> R
+    A --> T[LangGraph agent + tax calculator tools]
+    A --> G[(logs/requests.jsonl)]
+```
+
+## Production notes
+
+Measured on my laptop (not on Render) by running my 15 evaluation questions twice through `POST /ask` (`python -m eval.measure`).
+
+| Measure | Result |
+|---------|--------|
+| Requests logged | 30 (0 errors) |
+| Cache hit rate | 50% (second round was served from the cache) |
+| Latency without cache | about 1.5 s on average, 2.1 s at p95 |
+| Latency with cache | under 1 ms |
+| Tokens per question that used the LLM | about 600 on average, 813 at most |
+| Total tokens for 14 LLM calls | 8,441 |
+
+What I added to make it safer and easier to run:
+- **Logging:** every `/ask` request writes latency, tokens, cache hit and errors to `logs/requests.jsonl`. Only the first 80 characters of the question are saved.
+- **Cache:** the same question does not call the LLM again (100 answers, kept for 1 hour).
+- **Input limits:** an empty question or one longer than 500 characters gets a `400` error.
+- **Secrets:** the Groq key lives only in `.env` (local) and in Render environment variables. It is never committed.
+- **CI:** GitHub Actions runs ruff, 31 pytest tests and a Docker build on every push.
+
+## Known limits
+
+- When no source scores 0.5 or higher, TaxSaathi says "I don't know". This is safer than guessing, but a few good questions are refused too (see Q5 in the evaluation).
+- Prompt-injection tests check that the attack text stays in the user message, and that off-topic attacks get a refusal without calling the LLM. A clever attack on a question with matching sources could still confuse the model.
+- The free Render server sleeps after 15 minutes. The first request after that can take about a minute.
+- The numbers above are from my laptop. Render will be slower.
+- TaxSaathi is a learning project. Please confirm tax numbers on incometax.gov.in.
