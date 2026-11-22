@@ -1,7 +1,7 @@
 import pytest
 from fastapi.testclient import TestClient
 
-import app.main as main
+from app import main
 from app.rag import NO_ANSWER, answer_question
 
 client = TestClient(main.app)
