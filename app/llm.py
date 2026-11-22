@@ -1,4 +1,3 @@
-
 import os
 from pathlib import Path
 
@@ -8,6 +7,18 @@ from dotenv import load_dotenv
 load_dotenv(Path(__file__).resolve().parent.parent / ".env")
 
 GROQ_URL = "https://api.groq.com/openai/v1/chat/completions"
+
+TOKEN_COUNTER = {"total": 0}
+
+
+def reset_tokens():
+    """Call at the start of a request."""
+    TOKEN_COUNTER["total"] = 0
+
+
+def get_tokens():
+    """Tokens used by all LLM calls since reset_tokens()."""
+    return TOKEN_COUNTER["total"]
 
 
 def ask_llm(system_prompt, user_message, temperature=0.2):
@@ -57,6 +68,9 @@ def ask_llm(system_prompt, user_message, temperature=0.2):
         )
 
     data = response.json()
+
+    # Count the tokens used by this call
+    TOKEN_COUNTER["total"] += data.get("usage", {}).get("total_tokens", 0)
 
     message = data["choices"][0]["message"]
 

@@ -7,3 +7,4 @@ __pycache__/
 data/chroma/
 data/feedback.json
 debug_rag.py
+logs/

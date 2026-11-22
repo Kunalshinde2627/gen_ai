@@ -1,12 +1,13 @@
-
 import json
+import time
 from pathlib import Path
 
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 
 from app.graph import resume_graph, run_graph
-from app.llm import ask_llm
+from app.llm import ask_llm, get_tokens, reset_tokens
+from app.observability import AnswerCache, InputRejected, check_input, log_request
 from app.rag import answer_question
 from app.records import get_record, load_records
 from app.smart_search import smart_search
@@ -123,10 +124,34 @@ def search_semantic(q: str, top_k: int = 3):
     return semantic_query(q, top_k=top_k)
 
 
-# 8. Ask API
+# 8. Ask API (with input limit, cache and logging)
+ask_cache = AnswerCache()
+
+
 @app.post("/ask")
 def ask(body: Question):
-    return answer_question(body.question)
+    started = time.time()
+
+    try:
+        question = check_input(body.question)
+    except InputRejected as error:
+        raise HTTPException(status_code=400, detail=str(error))
+
+    cached = ask_cache.get(question)
+    if cached is not None:
+        log_request("/ask", question, (time.time() - started) * 1000, cached=True, tokens=0)
+        return cached
+
+    reset_tokens()
+    try:
+        result = answer_question(question)
+    except Exception as error:
+        log_request("/ask", question, (time.time() - started) * 1000, error=str(error)[:100])
+        raise
+
+    ask_cache.set(question, result)
+    log_request("/ask", question, (time.time() - started) * 1000, tokens=get_tokens())
+    return result
 
 
 # 9. Agent API with HITL, Sources and Regime Comparison
