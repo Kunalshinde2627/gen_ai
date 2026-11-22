@@ -1,5 +1,6 @@
 
 # TaxSaathi 💰
+[![TaxSaathi CI](https://github.com/Kunalshinde2627/gen_ai/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/Kunalshinde2627/gen_ai/actions/workflows/ci.yml)
 
 [![TaxSaathi CI](https://github.com/Kunalshinde2627/gen_ai/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/Kunalshinde2627/gen_ai/actions/workflows/ci.yml)
 
