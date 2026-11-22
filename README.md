@@ -1,4 +1,5 @@
 # TaxSaathi 💰
+[![TaxSaathi CI](https://github.com/Kunalshinde2627/gen_ai/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/Kunalshinde2627/gen_ai/actions/workflows/ci.yml)
 
 **TaxSaathi** is an AI-powered Income Tax Assistant designed to help freshers understand income tax, compare the old and new tax regimes, and find relevant Income Tax Department information.
 
