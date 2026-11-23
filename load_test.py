@@ -8,7 +8,7 @@ from requests.exceptions import RequestException
 URL = "https://taxsaathi-api.onrender.com/health"
 
 
-def test_api(i):
+def make_request(i):
     start = time.time()
 
     try:
@@ -25,7 +25,7 @@ def test_api(i):
 
 
 with ThreadPoolExecutor(max_workers=3) as executor:
-    results = executor.map(test_api, range(1, 4))
+    results = executor.map(make_request, range(1, 4))
 
 for result in results:
     print(result)
