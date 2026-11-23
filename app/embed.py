@@ -1,16 +1,26 @@
 import numpy as np
-from chromadb.utils import embedding_functions
 
 from app.chunking import build_chunks
 
-_embedder = embedding_functions.DefaultEmbeddingFunction()
+_embedder = None
 _chunks = None
 _matrix = None
 
 
+def _get_embedder():
+    """Lazily get or initialize the embedding function."""
+    global _embedder
+    if _embedder is None:
+        from chromadb.utils import embedding_functions
+
+        _embedder = embedding_functions.DefaultEmbeddingFunction()
+    return _embedder
+
+
 def embed_texts(texts):
     """Turn a list of texts into a 2D array of vectors (one row per text)."""
-    return np.array(_embedder(texts), dtype=float)
+    embedder = _get_embedder()
+    return np.array(embedder(texts), dtype=float)
 
 
 def _load():

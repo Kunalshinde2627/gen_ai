@@ -55,12 +55,20 @@ def read_record(record_id: str):
 # 4. Search API
 @app.get("/search")
 def search(q: str):
+    if not q.strip():
+        return []
     return smart_search(q)
 
 
 # 5. Questions API
 @app.post("/questions")
 def ask_question_api(body: Question):
+    if not body.question.strip():
+        return {
+            "answer": "I don't know. Please check incometax.gov.in.",
+            "sources": []
+        }
+
     results = smart_search(body.question, top_k=1)
 
     if not results:
@@ -121,6 +129,8 @@ def chat(body: Question):
 # 7. Semantic Search API
 @app.get("/search/semantic")
 def search_semantic(q: str, top_k: int = 3):
+    if not q.strip():
+        return []
     return semantic_query(q, top_k=top_k)
 
 
@@ -167,6 +177,12 @@ def agent(body: AgentRequest):
     try:
         # First request: Start graph
         if body.approved is None:
+            if not body.question.strip():
+                raise HTTPException(
+                    status_code=400,
+                    detail="question cannot be empty"
+                )
+
             result = run_graph(
                 body.question,
                 thread_id=body.thread_id
