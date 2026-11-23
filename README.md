@@ -259,7 +259,7 @@ What I added to make it safer and easier to run:
 - **Cache:** The same question does not call the LLM again (100 answers, kept for 1 hour).
 - **Input limits:** An empty question or one longer than 500 characters gets a `400` error.
 - **Secrets:** The Groq key lives only in `.env` (local) and in Render environment variables. It is never committed.
-- **CI:** GitHub Actions runs Ruff, 31 pytest tests and a Docker build on every push.
+- **CI:** GitHub Actions runs Ruff, 42 pytest tests and a Docker build on every push.
 
 ## Load Testing
 
